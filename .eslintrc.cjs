@@ -1,18 +1,31 @@
 module.exports = {
   root: true,
-  env: { browser: true, es2020: true },
+  parser: '@typescript-eslint/parser',
+  parserOptions:{
+    ecmaVersion: 2020,
+    sourceType: 'module',
+    ecmaFeatures: { jsx: true },
+  },
+  settings:{
+    react: { version: 'detect' },
+  },
+  'import/resolver': {
+    node: { paths:["src"], extensions: ['.js', '.jsx', '.ts', '.tsx'] },
+  },
+  env: { browser: true, and: true, node:true },
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:react-hooks/recommended',
-  ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
-  parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh'],
+    'plugin:react/recommended',
+    'plugin:prettier/recommended',
+  ],  
+  plugins: ['simple-import-sort',"prettier"],
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
+    'prettier/prettier': ['error', {}, { usePrettierrc: true }],
+    'react/react-in-jsx-scope': 'off',
+    'react/prop-types': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
   },
 }
